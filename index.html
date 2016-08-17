@@ -115,7 +115,7 @@ if(storedvalue){
 //alert("say GO");
 $.ajax({
 			type:"POST",
-			url:"loginapi.php",
+			url:"http://rewardsboxnigeria.com/perx/api/loginapi.php",
 			data:{username:username, password:password},
 			dataType:"json",
 			success: function(msg){
@@ -188,7 +188,7 @@ $('#login').click(function(){
 		//alert("say GO");
 		$.ajax({
 			type:"POST",
-			url:"loginapi.php",
+			url:"http://rewardsboxnigeria.com/perx/api/loginapi.php",
 			data:{username:username, password:password},
 			dataType:"json",
 			success: function(msg){
@@ -248,7 +248,7 @@ $('#forgotsubmit').click(function(){
 		
 		$.ajax({
 			type:"POST",
-			url:"forgotapi.php",
+			url:"http://rewardsboxnigeria.com/perx/api/forgotapi.php",
 			data:{email:email},
 			dataType:"json",
 			success: function(msg){
