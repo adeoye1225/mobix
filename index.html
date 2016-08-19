@@ -201,6 +201,10 @@ $.ajax({
   													localStorage.setItem('text', usernamevalue);
  												 var passwordvalue = document.getElementById('password').value;
 				  									localStorage.setItem('password', passwordvalue);
+													localStorage.setItem('memberid', msg.Membership_id);
+													localStorage.setItem('firstname', msg.First_name);
+													localStorage.setItem('notify', msg.Total_unread_notifications);
+													localStorage.setItem('bal', msg.Current_balance);
 												window.location.replace('main.html');
 												}
 											
