@@ -1426,7 +1426,8 @@ $.ajax({
 												location.href ="main.html";
 												}
 												else if (msg.status ==2025) {
-												alert("Invalid Pin");	
+												alert("Invalid Pin");
+												$('.loading-bgs').hide();	
 												}
 											}
 });
