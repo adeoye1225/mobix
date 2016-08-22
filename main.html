@@ -29,7 +29,7 @@ $(document).ready(function(){
 var memberid = localStorage.getItem('memberid').trim();
 		$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/showdetailapi.php",
+											url: "showdetailapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -96,7 +96,7 @@ var memberid = localStorage.getItem('memberid').trim();
             </div>
           </div>
         </div>
-					 
+	  				 
         <!-- Bottom Toolbar-->
         <div class="toolbar" >
               <div class="toolbar-inner">
@@ -109,7 +109,9 @@ var memberid = localStorage.getItem('memberid').trim();
               </ul>
               </div>  
         </div>
+    
       </div>
+     
     </div>
     
     

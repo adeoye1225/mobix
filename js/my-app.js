@@ -44,13 +44,20 @@ $(document).on('pageInit', function (e) {
 	
 	$('#showstat').load('stat.html', function() {
 		//alert("done");
+		
 		$('#fromdate, #todate').datepicker({
 		changeMonth: true,
 		});
+	if ($('.loading-bgs').length == 0) {	
+	$('.form_submit').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show(); // show the animated image    
+    $('.form_submit').hide(); // disable double submits
+	
 		var memberid = localStorage.getItem('memberid').trim();
 		$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/statementapi.php",
+											url: "statementapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -73,15 +80,22 @@ $(document).on('pageInit', function (e) {
 							result = result + tran; 	
 							});
 							
-							$('#liststatement').html(result);					
+							$('#liststatement').html(result);
+							$('.loading-bgs').hide();     
+    						$('.form_submit').show();					
 												
 												}
 												else {
 													$("#liststatement").html("No record found");
+													$('.loading-bgs').hide();     
+    												$('.form_submit').show();
 												}
 											}
 											}
 		});
+		//$('.loading-bg').hide();
+	//$('.loading-bgs').hide();     
+    //$('.form_submit').show();
 	});
 		//alert("done");
 	//});
@@ -104,10 +118,15 @@ $('#showstat').on('click', '#btnstatement', function () {
 		return false;
 	}
 	else{
+		if ($('.loading-bgs').length == 0) {	
+	$('.form_submit').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show(); // show the animated image    
+    $('.form_submit').hide(); // disable double submits
 		var memberid = localStorage.getItem('memberid').trim();
 		$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/statementapi.php",
+											url: "statementapi.php",
 											data: {memberid:memberid, fromdate:fromdate, todate:todate},
 											dataType:"json",
 											
@@ -132,10 +151,13 @@ $('#showstat').on('click', '#btnstatement', function () {
 							});
 							
 							$('#liststatement').html(result);					
-												
+							$('.loading-bgs').hide();     
+    						$('.form_submit').show();					
 												}
 												else {
 													$("#liststatement").html("No record found");
+													$('.loading-bgs').hide();     
+    												$('.form_submit').show();
 												}
 											}
 											}
@@ -147,10 +169,15 @@ $('#showstat').on('click', '#btnstatement', function () {
 $('#showsurvey').load('blank.html', function() {
 	//alert("survey");
 	
+	if ($('.loading-bgs').length == 0) {	
+	$('#showsurvey').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show(); // show the animated image    
+    //$('.form_submit').hide(); // disable double submits
 	var memberid = localStorage.getItem('memberid').trim();
 		$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/listsurveyapi.php",
+											url: "listsurveyapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -173,11 +200,15 @@ $('#showsurvey').load('blank.html', function() {
 							tran ="";	
 							});
 							//alert(tran);
-							$('#showsurvey').html(result);					
+							$('#showsurvey').html(result);	
+							$('.loading-bgs').hide();     
+    						//$('.form_submit').show();				
 												
 												}
 												else {
 													$("#showsurvey").html("No record found");
+													$('.loading-bgs').hide();     
+    												//$('.form_submit').show();
 												}
 											}
 											}
@@ -186,11 +217,15 @@ $('#showsurvey').load('blank.html', function() {
 
 $('#showsurvey').on('click','.survey_name', function() {
 	var surveyid = $(this).attr('id');
-	alert(surveyid);
+	//alert(surveyid);
 	var memberid = localStorage.getItem('memberid').trim();
+	if ($('.loading-bgs').length == 0) {	
+	$('#showsurvey').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show(); // show the animated image 	
 		$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/listsuquestionsapi.php",
+											url: "listsuquestionsapi.php",
 											data: {memberid:memberid, surveyid:surveyid},
 											dataType:"json",
 											
@@ -231,10 +266,11 @@ $('#showsurvey').on('click','.survey_name', function() {
 							var subtn = '<input type="submit" name="submit" id="btnsubmitsu" class="form_submit surveybtn" value="Submit" />';
 							result = result + subtn;
 							$('#showsurvey').html(result);					
-												
+							$('.loading-bgs').hide();					
 												}
 												else {
 													$("#showsurvey").html(msg.status);
+													$('.loading-bgs').hide();
 												}
 											}
 											}
@@ -262,15 +298,18 @@ suans[$(this).attr('name')] =$(this).val();
 }
 });
 
-alert(JSON.stringify(suans));
+//alert(JSON.stringify(suans));
 surveyresponse = JSON.stringify(suans);
 
 objlenght = Object.keys(suans).length;
 //alert(Object.keys(suans).length);	
-
+	if ($('.loading-bgs').length == 0) {	
+	$('#showsurvey').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show();
 $.ajax({
 			type:"POST",
-			url:"http://rewardsboxnigeria.com/perx/api/submitsurveyapi.php",
+			url:"submitsurveyapi.php",
 			data:{memberid:memberid, surveyresponse:surveyresponse, surveyid:surveyid},
 			dataType:"json",
 			success: function(msg){
@@ -280,14 +319,18 @@ $.ajax({
 											} else {
 												//alert("focus out one");
 												if (msg.status ==1001){
-													alert("Survey Sumited sucessfully");
+													alert("Survey Submited sucessfully");
+													$('.loading-bgs').hide();
+													location.href ="main.html";
 												} 
 												else if (msg.status ==2021) {
-													alert("Kindly answer all the questions");	
+													alert("Kindly answer all the questions");
+													$('.loading-bgs').hide();	
 												}
 												
 												else {
 													alert(msg.status);
+													$('.loading-bgs').hide();
 													
 												}
 												
@@ -299,10 +342,14 @@ $.ajax({
 $('#showauction').load('blank.html', function() {
 	//$('#showbid').ready(function(e) {
         var memberid = localStorage.getItem('memberid').trim();
+	if ($('.loading-bgs').length == 0) {	
+	$('#showauction').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show();		
 //alert("loading");
 		$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/listauctionapi.php",
+											url: "listauctionapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -337,36 +384,44 @@ $('#showauction').load('blank.html', function() {
                                         Highest_bid_text = "Not Bidded for Auction. Bid now to become first bidder.";
                                     }
                                     
-                                    tran='<div class="auction-item"><div class="bid-pic"><img src="'+value.Prize_image+'"/></div><div class="bid-item-desc"><h3>'+value.Auction_name+'</h3><p class="bid-timer">End Date:'+value.End_date +' '+ value.End_time +'  </p></div><div class="col-lg-4"><h4 class="winner-note">'+Highest_bid_text+'</h4><p>Minimum Amount To Bid</p><h3 id="'+value.Auction_id+'" class="minbid">'+ (+value.Min_bid_value + +value.Min_increment) +'</h3><input type="text" id="'+value.Auction_id+'" class="form_input"/><br/><input type="submit" name="submit" class="form_submit bidbtn" id="'+value.Auction_id+'" value="BID" /></div></div>';
+                                    tran='<div class="auction-item"><div class="bid-pic"><img src="'+value.Prize_image+'" class="auction-item-pic"/></div><div class="bid-item-desc"><h3>'+value.Auction_name+'</h3><p class="bid-timer">End Date:'+value.End_date +' '+ value.End_time +'  </p></div><div class="col-lg-4"><h4 class="winner-note">'+Highest_bid_text+'</h4><p>Minimum Amount To Bid</p><h3 id="'+value.Auction_id+'" class="minbid">'+ (+value.Min_bid_value + +value.Min_increment) +'</h3><input type="text" id="'+value.Auction_id+'" class="form_input"/><br/><input type="submit" name="submit" class="form_submit bidbtn" id="'+value.Auction_id+'" value="BID" /></div></div>';
 							result = result + tran; 
 							tran ="";	
                                 //}										
 							});
 							$('#showauction').html(result);
+							$('.loading-bgs').hide();
 		
 												}
 												
 												else if(msg.status ==2001){
 													alert("Unabele to locate company");
+													$('.loading-bgs').hide();
 												}
 												else if(msg.status ==2002){
 													alert("Invalid acces credentials");
+													$('.loading-bgs').hide();
 												}
 												else if(msg.status ==2003){
 													alert("Unable to locate account");
+													$('.loading-bgs').hide();
 												}
 												else if(msg.status ==2004){
 													alert("Account Disabled");
+													$('.loading-bgs').hide();
 												}
 												else if(msg.status ==2006){
 													alert("No id passed");
+													$('.loading-bgs').hide();
 												}
 												else if(msg.status ==2012){
 													alert("No auction Found");
+													$('.loading-bgs').hide();
 												}
 												
 												else {
 												alert(msg.status);
+												$('.loading-bgs').hide();
 																								}													
 											}
 															
@@ -397,10 +452,14 @@ $('#showauction').on('click','.bidbtn', function() {
 	}
 
 	else{
+	if ($('.loading-bgs').length == 0) {	
+	$('#showauction').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show();	
 	//alert(auctionval);	
 	$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/auctionbidapi.php",
+											url: "auctionbidapi.php",
 											data: {memberid:memberid, auctionval:auctionval, auctionid:auctionid},
 											dataType:"json",
 											
@@ -415,7 +474,7 @@ $('#showauction').on('click','.bidbtn', function() {
 							//Beginning load auction						
 											$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/listauctionapi.php",
+											url: "listauctionapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -456,30 +515,38 @@ $('#showauction').on('click','.bidbtn', function() {
                              //   }										
 							});
 							$('#showauction').html(result);
+							$('.loading-bgs').hide();
 		
 												}
 												
 												else if(msg.status ==2001){
-													alert("Unabele to locate company");
+													alert("Unable to locate company");
+													$('.loading-bgs').hide();
 												}
 												else if(msg.status ==2002){
 													alert("Invalid acces credentials");
+													$('.loading-bgs').hide();
 												}
 												else if(msg.status ==2003){
 													alert("Unable to locate account");
+													$('.loading-bgs').hide();
 												}
 												else if(msg.status ==2004){
 													alert("Account Disabled");
+													$('.loading-bgs').hide();
 												}
 												else if(msg.status ==2006){
 													alert("No id passed");
+													$('.loading-bgs').hide();
 												}
 												else if(msg.status ==2012){
 													alert("No auction Found");
+													$('.loading-bgs').hide();
 												}
 												
 												else {
 												alert(msg.status);
+												$('.loading-bgs').hide();
 																								}													
 											}
 															
@@ -492,19 +559,24 @@ $('#showauction').on('click','.bidbtn', function() {
 													
 												}
 												else if(msg.status ==2015){
-													alert("Unabele to identify auction");
+													alert("Unable to identify auction");
+													$('.loading-bgs').hide();
 												}
 												else if(msg.status ==2012){
 													alert("Auction Not found");
+													$('.loading-bgs').hide();
 												}
 													else if(msg.status ==2013){
 													alert("Bid value should be greater than minimum amount to build");
+													$('.loading-bgs').hide();
 												}
 													else if(msg.status ==2014){
-													alert("Insuffecient Balance to lace bid");
+													alert("Insuffecient Balance to Place bid");
+													$('.loading-bgs').hide();
 												}
 													else {
 														alert(msg.status);
+														$('.loading-bgs').hide();
 													}
 											}
 											}
@@ -526,10 +598,14 @@ $('#showtransfer').on('focusout','#transferto', function() {
 		return false;
 	}
 	else {
+	if ($('.loading-bgs').length == 0) {	
+	$('#showdetails').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show();	
 		
 		$.ajax({
 			type:"POST",
-			url:"http://rewardsboxnigeria.com/perx/api/showtransferapi.php",
+			url:"showtransferapi.php",
 			data:{memberid:memberid, transferto:transferto},
 			dataType:"json",
 			success: function(msg){
@@ -551,9 +627,11 @@ $('#showtransfer').on('focusout','#transferto', function() {
 													$("#points").focus();
 													
 													$('#showtdetails').html('<h3>Name: '+msg.First_name+' '+msg.Last_name+'</h3> <h3>Phone no: '+msg.Phone_no+'</h3>');
+													$('.loading-bgs').hide();
 												}
 												else {
 												alert(msg.status);	
+												$('.loading-bgs').hide();
 												}
 												
 												}
@@ -590,9 +668,14 @@ $('#showtransfer').on('click','#btntransfer', function() {
 	}
 	else {
 		
+	if ($('.loading-bgs').length == 0) {	
+	$('.form_submit').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show();	
+		
 		$.ajax({
 			type:"POST",
-			url:"http://rewardsboxnigeria.com/perx/api/transferapi.php",
+			url:"transferapi.php",
 			data:{memberid:memberid, transferto:transferto, points:points, mempin:mempin},
 			dataType:"json",
 			success: function(msg){
@@ -604,19 +687,23 @@ $('#showtransfer').on('click','#btntransfer', function() {
 												if (msg.status ==2016){
 												alert("Enter Membership ID of Account to Transfer");
 												$("#points").focus();
+												$('.loading-bgs').hide();
 												}
 												else if (msg.status ==2017){
 												alert("Membership id is Invalid");
 												$("#points").focus();
+												$('.loading-bgs').hide();
 												}
 												
 												else if (msg.status ==2014){
 												alert("You do not have enough points to make tranfer " +points);
 												$("#points").focus();
+												$('.loading-bgs').hide();
 												}
 												else if (msg.status ==2018){
 												alert("Kindly enter valid number of points");
 												$("#points").focus();
+												$('.loading-bgs').hide();
 												}
 												else if (msg.status ==1001){
 													alert("Points tranfered sucessfully."); 
@@ -625,11 +712,12 @@ $('#showtransfer').on('click','#btntransfer', function() {
 													$("#mempin").val('');
 													$('#showtdetails').html('');
 													$('#currentbal').html(msg.Current_balance);
-													
+													$('.loading-bgs').hide();
 													
 												}
 												else {
 												alert(msg.status);	
+												$('.loading-bgs').hide();
 												}
 												
 												}
@@ -656,10 +744,15 @@ for (i = 0; i < acc.length; i++) {
 }
 	//alert("survey");
 	
+	if ($('.loading-bgs').length == 0) {	
+	$('#shownotify').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show();
+	
 	var memberid = localStorage.getItem('memberid').trim();
 		$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/notifyapi.php",
+											url: "notifyapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -682,7 +775,8 @@ for (i = 0; i < acc.length; i++) {
 							tran ="";	
 							});
 							//alert(tran);
-							$('#shownotify').html(result);					
+							$('#shownotify').html(result);
+							$('.loading-bgs').hide();					
 								var acc = document.getElementsByClassName("accordion");
 								var i;
 								
@@ -695,6 +789,7 @@ for (i = 0; i < acc.length; i++) {
 												}
 												else {
 													$("#shownotify").html("No record found");
+													$('.loading-bgs').hide();
 												}
 											}
 											}
@@ -714,10 +809,15 @@ if (noteid ==""){
 	//alert(noteid);
 	//alert(JSON.stringify(noteid));
 	
+	if ($('.loading-bgs').length == 0) {	
+	$('#shownotify').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show();
+	
 	var memberid = localStorage.getItem('memberid').trim();
 		$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/delnotifyapi.php",
+											url: "delnotifyapi.php",
 											data: {memberid:memberid, noteid:noteid},
 											dataType:"json",
 											
@@ -731,6 +831,7 @@ if (noteid ==""){
                             {
 							//alert(value);
 							$('#'+value+'.linenotify').remove();	
+							$('.loading-bgs').hide();
 							});
 							
 											}
@@ -754,9 +855,14 @@ $('.promo').on('click','#btnpromo', function() {
 	
 	else {
 		
+		if ($('.loading-bgs').length == 0) {	
+	$('.form_submit').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show();
+		
 		$.ajax({
 			type:"POST",
-			url:"http://rewardsboxnigeria.com/perx/api/promoapi.php",
+			url:"promoapi.php",
 			data:{memberid:memberid, promocode:promocode},
 			dataType:"json",
 			success: function(msg){
@@ -768,27 +874,31 @@ $('.promo').on('click','#btnpromo', function() {
 												if (msg.status ==2028){
 												alert("Promo Code already used");
 												$("#promocode").focus();
+												$('.loading-bgs').hide();
 												}
 												else if (msg.status ==2023){
 												alert("Invalid Promo Code");
 												$("#promocode").focus();
+												$('.loading-bgs').hide();
 												}
 												
 												else if (msg.status ==2024){
 												alert("You have entered an invalid code 3 times");
 												$("#promocode").focus();
+												$('.loading-bgs').hide();
 												}
 												
 												else if (msg.status ==1001){
 													alert("Promo Code sucessful you just gained " +msg.Promo_points+" Points"); 
 													$("#promocode").val('');
 													$("#promocode").focus();
-													
+													$('.loading-bgs').hide();
 													
 													
 												}
 												else {
 												alert(msg.status);	
+												$('.loading-bgs').hide();
 												}
 												
 												}
@@ -806,9 +916,14 @@ $('.promo').on('click','#btnpromo', function() {
 $('#showcatalogue').load('blank.html', function() {
 
 var memberid = localStorage.getItem('memberid').trim();
+
+if ($('.loading-bgs').length == 0) {	
+	$('#showcatalogue').html('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show();
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/catalogueapi.php",
+											url: "catalogueapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -869,10 +984,11 @@ t2 ='<input type="radio" class="rd-redeem" value="1" name="'+value.Merchandize_i
 							});
 							//alert(tran);
 							$('#showcatalogue').html(result);		
+							$('.loading-bgs').hide();
 											}
 											else {
 												alert(msg.status);
-											
+											$('.loading-bgs').hide();
 											}
 											}
 											}
@@ -933,7 +1049,7 @@ $('#showcatalogue').on('click','.btn-add2cart', function() {
 	//alert(auctionval);	
 	$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/add2cartapi.php",
+											url: "add2cartapi.php",
 											data: {memberid:memberid, redmethod:redmethod, cartid:cartid, branch:branch},
 											dataType:"json",
 											
@@ -961,10 +1077,14 @@ $('#showcatalogue').on('click','.btn-add2cart', function() {
 });
 
 $('#showcheckout').load('blank.html', function() {
-$('#showcheckout').html('<div class="div-loading"><img src="images/loader.gif"/></div>');
+//if ($('.loading-bgs').length == 0) {	
+	$('#showcheckout').html('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	//}
+	$('.loading-bgs').show();
+
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/fetchcountryapi.php",
+											url: "fetchcountryapi.php",
 											data: {},
 											dataType:"json",
 											
@@ -981,13 +1101,14 @@ $.ajax({
 								tran1 ="";
 							});
 							$('#showcountry').html(result1);
+							
 												}
 											}
 })
 var memberid = localStorage.getItem('memberid').trim();
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/showcheckoutapi.php",
+											url: "showcheckoutapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -1028,9 +1149,14 @@ $.ajax({
 							$('#sameaddress').attr('data-country',msg.Status_array.Country_id);
 							$('#sameaddress').attr('data-state',msg.Status_array.State_id);
 							$('#sameaddress').attr('data-city',msg.Status_array.City_id);
+							$('.loading-bgs').hide();
+											}
+											else if (msg.status == 2012){
+												
 											}
 											else {
 											alert(msg.status);	
+											//$('.loading-bgs').hide();
 											}
 											}
 											}
@@ -1043,9 +1169,12 @@ var itemcode = $(this).attr('data-code');
 var redmethod = $(this).attr('data-redeem');
 var branch = $(this).attr('data-branch');
 var memberid = localStorage.getItem('memberid').trim();
+$(this).hide();
+$(this).after('<img src="images/loader.gif" alt="loading" id="loading_image">');
+
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/removecheckoutapi.php",
+											url: "removecheckoutapi.php",
 											data: {memberid:memberid,itemcode:itemcode, redmethod:redmethod, branch:branch},
 											dataType:"json",
 											
@@ -1079,7 +1208,7 @@ var memberid = localStorage.getItem('memberid').trim();
 //alert(quantity);
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/changeqtyapi.php",
+											url: "changeqtyapi.php",
 											data: {memberid:memberid,itemcode:itemcode, redmethod:redmethod, branch:branch,quantity:quantity},
 											dataType:"json",
 											
@@ -1113,7 +1242,7 @@ var memberid = localStorage.getItem('memberid').trim();
 //alert(remark);
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/addremarkapi.php",
+											url: "addremarkapi.php",
 											data: {memberid:memberid,itemcode:itemcode, redmethod:redmethod, branch:branch,remark:remark},
 											dataType:"json",
 											
@@ -1148,7 +1277,7 @@ else {
 
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/fetchstateapi.php",
+											url: "fetchstateapi.php",
 											data: {countryid:countryid},
 											dataType:"json",
 											
@@ -1187,7 +1316,7 @@ else {
 
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/fetchcityapi.php",
+											url: "fetchcityapi.php",
 											data: {stateid:stateid},
 											dataType:"json",
 											
@@ -1226,7 +1355,7 @@ var memberid = localStorage.getItem('memberid').trim();
 
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/calshippingapi.php",
+											url: "calshippingapi.php",
 											data: {stateid:stateid, countryid:countryid, memberid:memberid},
 											dataType:"json",
 											
@@ -1281,9 +1410,12 @@ if (address =="") {
 }
 else {
 
+$('#showcheckout').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	//}
+	$('.loading-bgs').show();
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/submitcheckoutapi.php",
+											url: "submitcheckoutapi.php",
 											data: {stateid:stateid, countryid:countryid, memberid:memberid,cityid:cityid,address:address, mempin:mempin},
 											dataType:"json",
 											
@@ -1291,6 +1423,7 @@ $.ajax({
 												if (msg.status ==1001){
 												alert("Order Sucessful\nCurrent Balance: "+msg.Current_balance+"\nShipping Address:"+msg.Shipping_Address);
 												$('#currentbal').html(msg.Current_balance);
+												location.href ="main.html";
 												}
 												else if (msg.status ==2025) {
 												alert("Invalid Pin");	
@@ -1316,7 +1449,7 @@ var memberid = localStorage.getItem('memberid').trim();
 
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/calshippingapi.php",
+											url: "calshippingapi.php",
 											data: {stateid:stateid, countryid:countryid, memberid:memberid},
 											dataType:"json",
 											
@@ -1340,7 +1473,7 @@ $.ajax({
 													$('#address').val(address);
 							$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/fetchcountryapi.php",
+											url: "fetchcountryapi.php",
 											data: {},
 											dataType:"json",
 											
@@ -1365,7 +1498,7 @@ $.ajax({
 
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/fetchstateapi.php",
+											url: "fetchstateapi.php",
 											data: {countryid:countryid},
 											dataType:"json",
 											
@@ -1390,7 +1523,7 @@ $.ajax({
 
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/fetchcityapi.php",
+											url: "fetchcityapi.php",
 											data: {stateid:stateid},
 											dataType:"json",
 											
@@ -1426,7 +1559,7 @@ $('#showprofile').load('blank.html', function() {
 var memberid = localStorage.getItem('memberid').trim();
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/profileapi.php",
+											url: "profileapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -1445,7 +1578,7 @@ $.ajax({
 											
 											$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/fetchcountryapi.php",
+											url: "fetchcountryapi.php",
 											data: {},
 											dataType:"json",
 											
@@ -1470,7 +1603,7 @@ $.ajax({
 var countryid = msg.Country_id;
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/fetchstateapi.php",
+											url: "fetchstateapi.php",
 											data: {countryid:countryid},
 											dataType:"json",
 											
@@ -1495,7 +1628,7 @@ $.ajax({
 var stateid = msg.State_id;
 $.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/fetchcityapi.php",
+											url: "fetchcityapi.php",
 											data: {stateid:stateid},
 											dataType:"json",
 											
@@ -1552,7 +1685,7 @@ else if (message ==""){
 }
 $.ajax({
 									type: "POST",
-									url: "http://rewardsboxnigeria.com/perx/api/send.php",
+									url: "http://rewardsboxnigeria.com/demodiscount/mobi/send.php",
 									//data: $("#contact").serialize(),
 									data: {name:name, email:email, message:message},
 																		
@@ -1633,7 +1766,7 @@ if ($('#loading_image').length == 0) { //is the image on the form yet?
     $('.validatebtn').hide(); // disable double submits
 		$.ajax({
 											type: "POST",
-											url: "http://rewardsboxnigeria.com/perx/api/pchangeapi.php",
+											url: "pchangeapi.php",
 											data: {npassword: npassword, opassword:opassword, memberid:memberid},
 											dataType:"json",
 											
@@ -1683,7 +1816,7 @@ $('#logout').click(function(){
 	//alert("logout");
 $.ajax({
 									//type: "POST",
-									url: "http://rewardsboxnigeria.com/perx/api/logout3.php",
+									url: "logout3.php",
 									//data: $("#contact").serialize(),
 									//data: {name:name, email:email, message:message},
 																		

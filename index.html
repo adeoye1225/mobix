@@ -42,6 +42,7 @@
             <div class="forgot_pass"><a href="#" data-popup=".popup-forgot" class="open-popup">Forgot Password?</a></div>
             <input type="submit" name="submit" class="form_submit" id="login" value="Login" />
             </form>
+            <div class="loading-bg" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"></div>
          <!--   <div class="signup_bottom">
             <p>Don't have an account?</p>
             <a href="#" data-popup=".popup-signup" class="open-popup">SIGN UP</a>            </div> 
@@ -85,6 +86,7 @@
             </div>
             </div>
       <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
+      
     </div>
     </div>
             </div>
@@ -102,7 +104,8 @@
 
 <script>
 $(document).ready(function(e) {
-
+$('.form_submit').hide(); // disable double submits			
+$('.loading-bg').show(); // show the animated image
 //$(document).ready(function(e) {
 var storedvalue = localStorage.getItem('text');
 var storedvalue2 = localStorage.getItem('password');
@@ -110,15 +113,20 @@ var storedvalue2 = localStorage.getItem('password');
 if(storedvalue){
 	//document.getElementById('username').value = storedvalue;
 	//document.getElementById('password').value = storedvalue2;
+	
 	var username = storedvalue;
 	var password = storedvalue2;
 //alert("say GO");
+	
 $.ajax({
 			type:"POST",
-			url:"http://rewardsboxnigeria.com/perx/api/loginapi.php",
+			url:"loginapi.php",
 			data:{username:username, password:password},
 			dataType:"json",
 			success: function(msg){
+	$('.form_submit').hide(); // disable double submits			
+	$('.loading-bg').show(); // show the animated image    
+    	
 				if (msg.sucess == false) {
 											alert("There was an error submitting the form. Please try again.");
 											} else {
@@ -129,7 +137,7 @@ $.ajax({
 													localStorage.setItem('firstname', msg.First_name);
 													localStorage.setItem('notify', msg.Total_unread_notifications);
 													localStorage.setItem('bal', msg.Current_balance);
-												window.location.replace('main.html');
+												window.location.replace('main.html')
 												}
 												
 												else if (msg.status ==2005){
@@ -156,10 +164,14 @@ $.ajax({
 										}
 	}
 		});
+$('.form_submit').show(); 			
+$('.loading-bg').hide();
 	//	return false;	
 }
 	
 	else {
+$('.form_submit').show(); 			
+$('.loading-bg').hide();
 
 												//window.location.replace('login.html');
 	}
@@ -168,7 +180,7 @@ $.ajax({
 
 //});
 
-	$('#login').click(function(){
+$('#login').click(function(){
 	var username = $('#username').val();
 	var	password = $('#password').val();
 	if (username == "")
@@ -185,18 +197,23 @@ $.ajax({
  
   
 	else{
-		alert("say GOs");
+		$('.form_submit').hide(); // disable double submits			
+	$('.loading-bg').show(); // show the animated image
+		//alert("say GO");
 		$.ajax({
 			type:"POST",
-			url:"http://rewardsboxnigeria.com/perx/api/loginapi.php",
+			url:"loginapi.php",
 			data:{username:username, password:password},
 			dataType:"json",
 			success: function(msg){
-				
+			
+			
+					
 				if (msg.success == false) {
 											alert("There was an error submitting the form. Please try again.");
 											} else {
 												if (msg.status ==1001){
+												// alert("nice");
 												 var usernamevalue = document.getElementById('username').value;
   													localStorage.setItem('text', usernamevalue);
  												 var passwordvalue = document.getElementById('password').value;
@@ -205,9 +222,18 @@ $.ajax({
 													localStorage.setItem('firstname', msg.First_name);
 													localStorage.setItem('notify', msg.Total_unread_notifications);
 													localStorage.setItem('bal', msg.Current_balance);
+												
 												window.location.replace('main.html');
 												}
-											
+												else if (msg.status ==2005){
+													alert("Invaid Username or Password");
+												localStorage.removeItem('text');
+												localStorage.removeItem('password');
+												localStorage.removeItem('memberid');
+												localStorage.removeItem('firstname');
+												localStorage.removeItem('notify');
+												localStorage.removeItem('bal');
+												}
 												else {
 
 												alert(msg.status);
@@ -215,15 +241,20 @@ $.ajax({
 
 			$('#username').val('');
 			$('#password').val('');
+	
 			}								}
+	
+	$('.form_submit').show(); 			
+	$('.loading-bg').hide();
+
 	}
-		});
+				});
 		return false;
+		
 	}
 
 
 });
-
 
 $('#forgotsubmit').click(function(){
 	var email = $('#email').val();
@@ -239,7 +270,7 @@ $('#forgotsubmit').click(function(){
 		
 		$.ajax({
 			type:"POST",
-			url:"http://rewardsboxnigeria.com/perx/api/forgotapi.php",
+			url:"forgotapi.php",
 			data:{email:email},
 			dataType:"json",
 			success: function(msg){

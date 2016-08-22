@@ -1758,8 +1758,12 @@ div.not-panel.show {
 	margin-bottom:20px;
 }
 
-.catalogue-item img{
+.catalogue-item img, .auction-item img{
 	margin:auto;
+}
+
+.auction-item .bid-pic .auction-item-pic{
+ max-width:90%;
 }
 
 .cart-item-number{
@@ -1824,10 +1828,28 @@ text-align:left;
 .cart-gift-card input[type="text"], .cart-gift-card input[type="password"], .cart-gift-card select{
 	float:right;
 }
+
 .div-loading{
-	 position: absolute;
+  position: absolute;
     top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
+ z-index:inherit;
+}
+
+.loading-bgs{
+ position:fixed;
+ top:0%;
+ z-index:10px;
+ min-height:100%;
+ width:100%;
+ opacity:0.9;
+ color:#fff;
+ text-align:center;
+ background-color: #323232;
+}
+
+.cart-item .cart-item-info .div-change .txtquantity{
+ max-width:50px;
 }
