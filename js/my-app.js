@@ -57,7 +57,7 @@ $(document).on('pageInit', function (e) {
 		var memberid = localStorage.getItem('memberid').trim();
 		$.ajax({
 											type: "POST",
-											url: "statementapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/statementapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -126,7 +126,7 @@ $('#showstat').on('click', '#btnstatement', function () {
 		var memberid = localStorage.getItem('memberid').trim();
 		$.ajax({
 											type: "POST",
-											url: "statementapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/statementapi.php",
 											data: {memberid:memberid, fromdate:fromdate, todate:todate},
 											dataType:"json",
 											
@@ -177,7 +177,7 @@ $('#showsurvey').load('blank.html', function() {
 	var memberid = localStorage.getItem('memberid').trim();
 		$.ajax({
 											type: "POST",
-											url: "listsurveyapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/listsurveyapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -225,7 +225,7 @@ $('#showsurvey').on('click','.survey_name', function() {
 	$('.loading-bgs').show(); // show the animated image 	
 		$.ajax({
 											type: "POST",
-											url: "listsuquestionsapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/listsuquestionsapi.php",
 											data: {memberid:memberid, surveyid:surveyid},
 											dataType:"json",
 											
@@ -309,7 +309,7 @@ objlenght = Object.keys(suans).length;
 	$('.loading-bgs').show();
 $.ajax({
 			type:"POST",
-			url:"submitsurveyapi.php",
+			url:"http://rewardsboxnigeria.com/perx/api/submitsurveyapi.php",
 			data:{memberid:memberid, surveyresponse:surveyresponse, surveyid:surveyid},
 			dataType:"json",
 			success: function(msg){
@@ -349,7 +349,7 @@ $('#showauction').load('blank.html', function() {
 //alert("loading");
 		$.ajax({
 											type: "POST",
-											url: "listauctionapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/listauctionapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -459,7 +459,7 @@ $('#showauction').on('click','.bidbtn', function() {
 	//alert(auctionval);	
 	$.ajax({
 											type: "POST",
-											url: "auctionbidapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/auctionbidapi.php",
 											data: {memberid:memberid, auctionval:auctionval, auctionid:auctionid},
 											dataType:"json",
 											
@@ -474,7 +474,7 @@ $('#showauction').on('click','.bidbtn', function() {
 							//Beginning load auction						
 											$.ajax({
 											type: "POST",
-											url: "listauctionapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/listauctionapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -605,7 +605,7 @@ $('#showtransfer').on('focusout','#transferto', function() {
 		
 		$.ajax({
 			type:"POST",
-			url:"showtransferapi.php",
+			url:"http://rewardsboxnigeria.com/perx/api/showtransferapi.php",
 			data:{memberid:memberid, transferto:transferto},
 			dataType:"json",
 			success: function(msg){
@@ -675,7 +675,7 @@ $('#showtransfer').on('click','#btntransfer', function() {
 		
 		$.ajax({
 			type:"POST",
-			url:"transferapi.php",
+			url:"http://rewardsboxnigeria.com/perx/api/transferapi.php",
 			data:{memberid:memberid, transferto:transferto, points:points, mempin:mempin},
 			dataType:"json",
 			success: function(msg){
@@ -752,7 +752,7 @@ for (i = 0; i < acc.length; i++) {
 	var memberid = localStorage.getItem('memberid').trim();
 		$.ajax({
 											type: "POST",
-											url: "notifyapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/notifyapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -817,7 +817,7 @@ if (noteid ==""){
 	var memberid = localStorage.getItem('memberid').trim();
 		$.ajax({
 											type: "POST",
-											url: "delnotifyapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/delnotifyapi.php",
 											data: {memberid:memberid, noteid:noteid},
 											dataType:"json",
 											
@@ -862,7 +862,7 @@ $('.promo').on('click','#btnpromo', function() {
 		
 		$.ajax({
 			type:"POST",
-			url:"promoapi.php",
+			url:"http://rewardsboxnigeria.com/perx/api/promoapi.php",
 			data:{memberid:memberid, promocode:promocode},
 			dataType:"json",
 			success: function(msg){
@@ -923,7 +923,7 @@ if ($('.loading-bgs').length == 0) {
 	$('.loading-bgs').show();
 $.ajax({
 											type: "POST",
-											url: "catalogueapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/catalogueapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -1049,7 +1049,7 @@ $('#showcatalogue').on('click','.btn-add2cart', function() {
 	//alert(auctionval);	
 	$.ajax({
 											type: "POST",
-											url: "add2cartapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/add2cartapi.php",
 											data: {memberid:memberid, redmethod:redmethod, cartid:cartid, branch:branch},
 											dataType:"json",
 											
@@ -1084,7 +1084,7 @@ $('#showcheckout').load('blank.html', function() {
 
 $.ajax({
 											type: "POST",
-											url: "fetchcountryapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/fetchcountryapi.php",
 											data: {},
 											dataType:"json",
 											
@@ -1108,7 +1108,7 @@ $.ajax({
 var memberid = localStorage.getItem('memberid').trim();
 $.ajax({
 											type: "POST",
-											url: "showcheckoutapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/showcheckoutapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -1174,7 +1174,7 @@ $(this).after('<img src="images/loader.gif" alt="loading" id="loading_image">');
 
 $.ajax({
 											type: "POST",
-											url: "removecheckoutapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/removecheckoutapi.php",
 											data: {memberid:memberid,itemcode:itemcode, redmethod:redmethod, branch:branch},
 											dataType:"json",
 											
@@ -1208,7 +1208,7 @@ var memberid = localStorage.getItem('memberid').trim();
 //alert(quantity);
 $.ajax({
 											type: "POST",
-											url: "changeqtyapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/changeqtyapi.php",
 											data: {memberid:memberid,itemcode:itemcode, redmethod:redmethod, branch:branch,quantity:quantity},
 											dataType:"json",
 											
@@ -1242,7 +1242,7 @@ var memberid = localStorage.getItem('memberid').trim();
 //alert(remark);
 $.ajax({
 											type: "POST",
-											url: "addremarkapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/addremarkapi.php",
 											data: {memberid:memberid,itemcode:itemcode, redmethod:redmethod, branch:branch,remark:remark},
 											dataType:"json",
 											
@@ -1277,7 +1277,7 @@ else {
 
 $.ajax({
 											type: "POST",
-											url: "fetchstateapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/fetchstateapi.php",
 											data: {countryid:countryid},
 											dataType:"json",
 											
@@ -1316,7 +1316,7 @@ else {
 
 $.ajax({
 											type: "POST",
-											url: "fetchcityapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/fetchcityapi.php",
 											data: {stateid:stateid},
 											dataType:"json",
 											
@@ -1355,7 +1355,7 @@ var memberid = localStorage.getItem('memberid').trim();
 
 $.ajax({
 											type: "POST",
-											url: "calshippingapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/calshippingapi.php",
 											data: {stateid:stateid, countryid:countryid, memberid:memberid},
 											dataType:"json",
 											
@@ -1415,7 +1415,7 @@ $('#showcheckout').after('<div class="loading-bgs" style="display: none;"><img s
 	$('.loading-bgs').show();
 $.ajax({
 											type: "POST",
-											url: "submitcheckoutapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/submitcheckoutapi.php",
 											data: {stateid:stateid, countryid:countryid, memberid:memberid,cityid:cityid,address:address, mempin:mempin},
 											dataType:"json",
 											
@@ -1449,7 +1449,7 @@ var memberid = localStorage.getItem('memberid').trim();
 
 $.ajax({
 											type: "POST",
-											url: "calshippingapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/calshippingapi.php",
 											data: {stateid:stateid, countryid:countryid, memberid:memberid},
 											dataType:"json",
 											
@@ -1473,7 +1473,7 @@ $.ajax({
 													$('#address').val(address);
 							$.ajax({
 											type: "POST",
-											url: "fetchcountryapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/fetchcountryapi.php",
 											data: {},
 											dataType:"json",
 											
@@ -1498,7 +1498,7 @@ $.ajax({
 
 $.ajax({
 											type: "POST",
-											url: "fetchstateapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/fetchstateapi.php",
 											data: {countryid:countryid},
 											dataType:"json",
 											
@@ -1523,7 +1523,7 @@ $.ajax({
 
 $.ajax({
 											type: "POST",
-											url: "fetchcityapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/fetchcityapi.php",
 											data: {stateid:stateid},
 											dataType:"json",
 											
@@ -1559,7 +1559,7 @@ $('#showprofile').load('blank.html', function() {
 var memberid = localStorage.getItem('memberid').trim();
 $.ajax({
 											type: "POST",
-											url: "profileapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/profileapi.php",
 											data: {memberid:memberid},
 											dataType:"json",
 											
@@ -1578,7 +1578,7 @@ $.ajax({
 											
 											$.ajax({
 											type: "POST",
-											url: "fetchcountryapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/fetchcountryapi.php",
 											data: {},
 											dataType:"json",
 											
@@ -1603,7 +1603,7 @@ $.ajax({
 var countryid = msg.Country_id;
 $.ajax({
 											type: "POST",
-											url: "fetchstateapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/fetchstateapi.php",
 											data: {countryid:countryid},
 											dataType:"json",
 											
@@ -1628,7 +1628,7 @@ $.ajax({
 var stateid = msg.State_id;
 $.ajax({
 											type: "POST",
-											url: "fetchcityapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/fetchcityapi.php",
 											data: {stateid:stateid},
 											dataType:"json",
 											
@@ -1766,7 +1766,7 @@ if ($('#loading_image').length == 0) { //is the image on the form yet?
     $('.validatebtn').hide(); // disable double submits
 		$.ajax({
 											type: "POST",
-											url: "pchangeapi.php",
+											url: "http://rewardsboxnigeria.com/perx/api/pchangeapi.php",
 											data: {npassword: npassword, opassword:opassword, memberid:memberid},
 											dataType:"json",
 											

@@ -42,7 +42,7 @@
             <div class="forgot_pass"><a href="#" data-popup=".popup-forgot" class="open-popup">Forgot Password?</a></div>
             <input type="submit" name="submit" class="form_submit" id="login" value="Login" />
             </form>
-            <div class="loading-bg" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"></div>
+            
          <!--   <div class="signup_bottom">
             <p>Don't have an account?</p>
             <a href="#" data-popup=".popup-signup" class="open-popup">SIGN UP</a>            </div> 
@@ -104,8 +104,7 @@
 
 <script>
 $(document).ready(function(e) {
-$('.form_submit').hide(); // disable double submits			
-$('.loading-bg').show(); // show the animated image
+
 //$(document).ready(function(e) {
 var storedvalue = localStorage.getItem('text');
 var storedvalue2 = localStorage.getItem('password');
@@ -117,10 +116,14 @@ if(storedvalue){
 	var username = storedvalue;
 	var password = storedvalue2;
 //alert("say GO");
-	
+	if ($('.loading-bgs').length == 0) {	
+	$('.form_submit').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show(); // show the animated image    
+    $('.form_submit').hide(); // disable double submits	
 $.ajax({
 			type:"POST",
-			url:"loginapi.php",
+			url:"http://rewardsboxnigeria.com/perx/api/loginapi.php",
 			data:{username:username, password:password},
 			dataType:"json",
 			success: function(msg){
@@ -148,6 +151,7 @@ $.ajax({
 												localStorage.removeItem('firstname');
 												localStorage.removeItem('notify');
 												localStorage.removeItem('bal');
+												
 												
 												}
 											
@@ -197,12 +201,14 @@ $('#login').click(function(){
  
   
 	else{
-		$('.form_submit').hide(); // disable double submits			
-	$('.loading-bg').show(); // show the animated image
-		//alert("say GO");
+			if ($('.loading-bgs').length == 0) {	
+	$('.form_submit').after('<div class="loading-bgs" style="display: none;"><img src="images/loader.gif" alt="loading" class="div-loading"/></div>');
+	}
+	$('.loading-bgs').show(); // show the animated image    
+    $('.form_submit').hide(); // disable double submits
 		$.ajax({
 			type:"POST",
-			url:"loginapi.php",
+			url:"http://rewardsboxnigeria.com/perx/api/loginapi.php",
 			data:{username:username, password:password},
 			dataType:"json",
 			success: function(msg){
@@ -233,10 +239,15 @@ $('#login').click(function(){
 												localStorage.removeItem('firstname');
 												localStorage.removeItem('notify');
 												localStorage.removeItem('bal');
+												$('.loading-bgs').hide();    
+											    $('.form_submit').show();
+
 												}
 												else {
 
 												alert(msg.status);
+												$('.loading-bgs').hide();    
+											    $('.form_submit').show();
 
 
 			$('#username').val('');
